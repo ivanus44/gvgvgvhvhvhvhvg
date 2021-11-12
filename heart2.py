@@ -14,6 +14,7 @@ def fill_HDA(HDA):
     return 0
 df['HeartDiseaseorAttack'] = df['HeartDiseaseorAttack'].apply(fill_HDA)
 print(df)
+print(df['BMI'].value_counts())
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -40,7 +41,8 @@ print(confusion_matrix(y_test, y_pred))
 
 import matplotlib.pyplot as plt
 
-s = pd.Series(data = [212,186], index = ['С ожирением','Без ожирения'])
+s = pd.Series(data = [181600,72080], index = ['С ожирением','Без ожирения'])
 s.plot(kind = 'barh')
 
 plt.show()
+
