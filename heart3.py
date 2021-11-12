@@ -1,19 +1,20 @@
 import pandas as pd
 df = pd.read_csv('heart_disease_health.csv')
 
-df.drop(['HighBP','HighChol','CholCheck','BMI','Smoker','Sex','Stroke','Diabetes','PhysActivity','Fruits','Veggies','HvyAlcoholConsump','AnyHealthcare','NoDocbcCost','GenHlth','MentHlth','PhysHlth','DiffWalk','Education','Income'],axis = 1, inplace = True)
-print('после 30 инфаркт случается чаще')
+df.drop(['HighBP','HighChol','CholCheck','BMI','Smoker','Sex','Stroke','Age','PhysActivity','Fruits','Veggies','HvyAlcoholConsump','AnyHealthcare','NoDocbcCost','GenHlth','MentHlth','PhysHlth','DiffWalk','Education','Income'],axis = 1, inplace = True)
+print('У людей с диабетом инфаркт случается чаще')
 def fill_int(Age):
-    if Age <= 30:
+    if Age == 1.0:
         return 1
     return 0
-df['Age'] = df['Age'].apply(fill_int)
+df['Diabetes'] = df['Diabetes'].apply(fill_int)
 def fill_HDA(HDA):
     if HDA == 1.0:
         return 1
     return 0
 df['HeartDiseaseorAttack'] = df['HeartDiseaseorAttack'].apply(fill_HDA)
 print(df)
+print(df['Diabetes'].value_counts())
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -40,7 +41,7 @@ print(confusion_matrix(y_test, y_pred))
 
 import matplotlib.pyplot as plt
 
-s = pd.Series(data = [212,186], index = ['ДО 30','ПОСЛЕ 30'])
+s = pd.Series(data = [249049,4631], index = ['БЕЗ ДИАБЕТА','C ДИАБЕТОМ'])
 s.plot(kind = 'barh')
 
 plt.show()
